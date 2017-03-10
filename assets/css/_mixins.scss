@@ -1,0 +1,73 @@
+@mixin mobile {
+	@media (max-width:760px){@content;}
+}
+@mixin xl {
+	@media (min-width:1250px) {@content;}
+}
+
+@mixin font($type, $size, $line){
+	font-family:$type;
+	font-size:$size;
+	line-height:$line;
+}
+
+@mixin transition($args) {
+	-moz-transition: $args;
+	-ms-transition: $args;
+	-webkit-transition: $args;
+	transition: $args;
+}
+
+@mixin transform($args) {
+	-moz-transform: $args;
+	-ms-transform: $args;
+	-webkit-transform: $args;
+	transform: $args;
+}
+
+@mixin keyframes($name) {
+	@-moz-keyframes $name {
+		@content;
+	}
+	@-ms-keyframes $name {
+		@content;
+	}
+	@-webkit-keyframes $name {
+		@content;
+	}
+	@keyframes $name {
+		@content;
+	}
+}
+
+@mixin animation($args) {
+	-moz-animation: $args;
+	-ms-animation: $args;
+	-webkit-animation: $args;
+	animation: $args;
+}
+
+%clearfix {
+	*zoom: 1;
+	&:before, &:after {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+.media-check {
+	width:0; height:0;
+	visibility:hidden;
+	position:absolute;
+	top:-1000px; left:-1000px;
+	text-indent:30px;
+	@include mobile {
+		text-indent:10px;
+	}
+	@include xl {
+		text-indent:40px;
+	}
+}

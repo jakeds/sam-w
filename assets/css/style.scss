@@ -14,14 +14,116 @@ body {
 	-webkit-font-smoothing: antialiased;
 	background:#fff; color:#111;
 	@include font($font1, $size1, $line1);
-	@include xl {@include font($font1, $size1-xl, $line1-xl);}
 	@include mobile {@include font($font1, $size1-mobile, $line1-mobile);}
-	@include animation(pageFadeIn 600ms);
+	font-weight:400;
+	cursor:wait;
 }
 
-a {color:#111; border:0; text-decoration:none;}
-a:hover {color:#111; border:0; text-decoration:none;}
+body.visible {
+	@include animation(pageFadeIn 600ms);
+	cursor:inherit;
+}
+
+a {color:$grey; border:0; text-decoration:none;}
+a:hover {color:#33f; border:0; text-decoration:none;}
+a:after {
+	content:'↗';
+	margin-left:0.3vw;
+	display:inline-block;
+}
 ::selection {background:#fff; color:#111; text-shadow: none;}
 
 // Use @extend %clearfix; within brackets
 .group:after {content: ''; display: table; clear: both;}
+
+.page {
+	padding:10vw;
+	margin:0 auto;
+	@include mobile {
+		padding:5vw;
+	}
+}
+
+	section {
+		@extend %clearfix;
+	}
+
+	section + section {
+		margin-top:$line1;
+		@include mobile {
+			margin-top:$line1-mobile;
+		}
+	}
+
+		.column-header {
+			width:25%;
+			float:left;
+			padding-right:2.5%;
+			@include mobile {
+				clear:both;
+				padding-right:0;
+				width:auto;
+				margin-bottom:$line1-mobile;
+			}
+		}
+
+		section:first-child .column-header {font-weight:500;}
+
+		.column-text {
+			width:75%;
+			padding-left:2.5%;
+			display:block;
+			float:left;
+			color:$grey;
+			@include mobile {
+				clear:both;
+				padding-left:0;
+				width:auto;
+			}
+		}
+
+		section:first-child .column-text {color:#111}
+		section:first-child a {color:#111}
+		section:first-child a:hover {color:#33f}
+
+			.column-text li {
+				display:block;
+				clear:both;
+				@extend %clearfix;
+			}
+
+				.title {
+					display:block;
+					float:left;
+					width:15%;
+					padding-right:2.5%;
+					@include mobile {
+						width:25%;
+					}
+				}
+
+				.text {
+					display:block;
+					float:left;
+					width:100%;
+					@include mobile {
+						
+					}
+				}
+
+				.title + .text {
+					width:85%;
+					@include mobile {
+						width:75%;
+					}
+				}
+
+					a.visited {
+						text-decoration:line-through;
+					}
+
+	iframe {
+		position:fixed;
+		top:0; left:0; right:0; bottom:0;
+		width:100vw; height:100vh;
+	}

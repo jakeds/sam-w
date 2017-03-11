@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -102,6 +103,14 @@ i, em {
 
   h2, h3 {
     page-break-after: avoid; } }
+section, .column-text li {
+  *zoom: 1; }
+  section:before, .column-text li:before, section:after, .column-text li:after {
+    content: " ";
+    display: table; }
+  section:after, .column-text li:after {
+    clear: both; }
+
 .media-check {
   width: 0;
   height: 0;
@@ -153,33 +162,38 @@ body {
   -webkit-font-smoothing: antialiased;
   background: #fff;
   color: #111;
-  font-family: "Times New Roman", Times, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.4vw;
+  line-height: 1.75em;
+  font-weight: 400;
+  cursor: wait; }
+  @media (max-width: 760px) {
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 4vw;
+      line-height: 1.75em; } }
+
+body.visible {
   -moz-animation: pageFadeIn 600ms;
   -ms-animation: pageFadeIn 600ms;
   -webkit-animation: pageFadeIn 600ms;
-  animation: pageFadeIn 600ms; }
-  @media (min-width: 1250px) {
-    body {
-      font-family: "Times New Roman", Times, Arial, sans-serif;
-      font-size: 14px;
-      line-height: 20px; } }
-  @media (max-width: 760px) {
-    body {
-      font-family: "Times New Roman", Times, Arial, sans-serif;
-      font-size: 14px;
-      line-height: 20px; } }
+  animation: pageFadeIn 600ms;
+  cursor: inherit; }
 
 a {
-  color: #111;
+  color: #777777;
   border: 0;
   text-decoration: none; }
 
 a:hover {
-  color: #111;
+  color: #33f;
   border: 0;
   text-decoration: none; }
+
+a:after {
+  content: '↗';
+  margin-left: 0.3vw;
+  display: inline-block; }
 
 ::selection {
   background: #fff;
@@ -190,3 +204,87 @@ a:hover {
   content: '';
   display: table;
   clear: both; }
+
+.page {
+  padding: 10vw;
+  margin: 0 auto; }
+  @media (max-width: 760px) {
+    .page {
+      padding: 5vw; } }
+
+section + section {
+  margin-top: 1.75em; }
+  @media (max-width: 760px) {
+    section + section {
+      margin-top: 1.75em; } }
+
+.column-header {
+  width: 25%;
+  float: left;
+  padding-right: 2.5%; }
+  @media (max-width: 760px) {
+    .column-header {
+      clear: both;
+      padding-right: 0;
+      width: auto;
+      margin-bottom: 1.75em; } }
+
+section:first-child .column-header {
+  font-weight: 500; }
+
+.column-text {
+  width: 75%;
+  padding-left: 2.5%;
+  display: block;
+  float: left;
+  color: #777777; }
+  @media (max-width: 760px) {
+    .column-text {
+      clear: both;
+      padding-left: 0;
+      width: auto; } }
+
+section:first-child .column-text {
+  color: #111; }
+
+section:first-child a {
+  color: #111; }
+
+section:first-child a:hover {
+  color: #33f; }
+
+.column-text li {
+  display: block;
+  clear: both; }
+
+.title {
+  display: block;
+  float: left;
+  width: 15%;
+  padding-right: 2.5%; }
+  @media (max-width: 760px) {
+    .title {
+      width: 25%; } }
+
+.text {
+  display: block;
+  float: left;
+  width: 100%; }
+
+.title + .text {
+  width: 85%; }
+  @media (max-width: 760px) {
+    .title + .text {
+      width: 75%; } }
+
+a.visited {
+  text-decoration: line-through; }
+
+iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh; }

@@ -23,7 +23,11 @@ a.site = {
 		a.helpers.whichTransition();
 		this.bindEvents();
 		this.setInitialState();
-		this.startTabletop();
+		if($('body').hasClass('view')){
+			this.startViewer();
+		} else {
+			this.startTabletop();
+		}
 	},
 
 	getSizes: function(){
@@ -53,14 +57,66 @@ a.site = {
 		}, 250);
 	},
 
-	sheet: null,
+	sheets: null,
 	startTabletop: function(){
 		Tabletop.init({
 			key: '1x1M2mwl7eSxDxuKrrQ0B6eNCBHqzaaGZOZrtwvZyNyM',
-			callback: function(data, tabletop){
-				a.site.sheet = data;
-				console.log(a.site.sheet);
-			}, simpleSheet: true});
+			parseNumbers: true,
+			callback: a.site.processTabletop
+		});
+	}, 
+
+	processTabletop: function(data, tabletop){
+		a.site.sheets = a.helpers.sortObj(tabletop.sheets(), 'asc');
+
+		var page = $('<div class="page"></div>');
+
+		$.each(a.site.sheets, function(i, sheet){
+
+			if(sheet.name === 'Options'){
+
+				var title = tabletop.sheets('Options').all()[0]['Title'];
+				var description = tabletop.sheets('Options').all()[0]['Description'];
+
+				// document.title = title;
+				// $('meta[name=description]').attr('content', description);
+
+			} else {
+
+				var sectionName = sheet.name.replace(/^\d+/, '').trim();
+				var section = $('<section data-section="' + sheet.name + '"><div class="column-header"><h2>' + sectionName + '</h2></div><ul class="column-text"></ul></section>');
+
+				$.each(tabletop.sheets(sheet.name).all(), function(i, row){
+					var title = row['Title'];
+					var link = row['Link'];
+					var link = row['Google Doc ID'] !== '' ? 'view/?' + row['Google Doc ID'] : link;
+					var text = link === '' ? row['Text'] : '<a href="' + link + '" target="_blank">' + row['Text'] + '</a>';
+					var type = text === '-' ? 'spacer' : 'item';
+					var text = text === '-' ? '&nbsp;' : text;
+
+					if(title === ''){
+						$('ul.column-text', section).append('<li class="' + type + '"><span class="text">' + text + '</span></li>');
+					} else {
+						$('ul.column-text', section).append('<li class="' + type + '"><span class="title">' + title + '</span><span class="text">' + text + '</span></li>');
+					}
+
+				});
+
+				page.append(section);
+
+			}
+			
+
+		});
+
+		$('body').html(page).addClass('visible');
+
+	},
+
+	startViewer: function(){
+		var link = location.href;
+		var id = link.substring(link.indexOf('?') + 1);
+		$('body').html('<iframe src="https://docs.google.com/document/d/' + id + '/?rm=full"></iframe>').addClass('visible');
 	}
 
 }
@@ -72,7 +128,11 @@ a.nav = {
 	},
 
 	bindEvents: function(){
-		
+		$('body').on('click', 'a', this.makeVisited);
+	},
+
+	makeVisited: function(){
+		$(this).addClass('visited');
 	}
 
 }
@@ -164,6 +224,32 @@ a.helpers = {
 
 	checkInternalLinks: function(){
 		$('a[href^="' + a.settings.url + '"]').addClass('internal');
+	},
+
+	sortObj: function(obj, order){
+		"use strict";
+		var key,
+			tempArry = [],
+			i,
+			tempObj = {};
+		for ( key in obj ) {
+			tempArry.push(key);
+		}
+		tempArry.sort(
+			function(a, b) {
+				return a.toLowerCase().localeCompare( b.toLowerCase() );
+			}
+		);
+		if( order === 'desc' ) {
+			for ( i = tempArry.length - 1; i >= 0; i-- ) {
+				tempObj[ tempArry[i] ] = obj[ tempArry[i] ];
+			}
+		} else {
+			for ( i = 0; i < tempArry.length; i++ ) {
+				tempObj[ tempArry[i] ] = obj[ tempArry[i] ];
+			}
+		}
+		return tempObj;
 	}
 
 }

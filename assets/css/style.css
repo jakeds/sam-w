@@ -242,7 +242,7 @@ section:first-child .column-header {
     .column-text {
       clear: both;
       padding-left: 0;
-      width: auto; } }
+      width: 100%; } }
 
 section:first-child .column-text {
   color: #111; }

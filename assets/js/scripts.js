@@ -3,7 +3,7 @@ $(document).ready(function(){
 var a = {};
 
 a.settings = {
-	url: 'http://localhost/',
+	url: 'http://sam-w.com/',
 	speed: 400,
 	easing: 'easeInOutCubic'
 },
@@ -60,6 +60,7 @@ a.site = {
 	sheets: null,
 	startTabletop: function(){
 		Tabletop.init({
+			// Replace this key with your Google Sheets shared sheet ID
 			key: '1x1M2mwl7eSxDxuKrrQ0B6eNCBHqzaaGZOZrtwvZyNyM',
 			parseNumbers: true,
 			callback: a.site.processTabletop
@@ -116,6 +117,7 @@ a.site = {
 	startViewer: function(){
 		var link = location.href;
 		var id = link.substring(link.indexOf('?') + 1);
+		
 		$('body').html('<iframe src="https://docs.google.com/document/d/' + id + '/?rm=full"></iframe>').addClass('visible');
 	}
 
@@ -142,6 +144,7 @@ a.helpers = {
 	init: function(){
 		this.easeFunctions();
 		this.checkBrowser();
+		this.checkMediaQuery();
 		this.checkInternalLinks();
 	},
 

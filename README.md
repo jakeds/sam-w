@@ -1,6 +1,6 @@
-# sam-w
+## Using Google Sheets + Docs as a database for a simple personal homepage
 
-sam-w.com
+http://sam-w.com
 
 Neutral, clean, responsive personal home page that utilises Google Sheets as a database and Google Docs for text/image-based content. No server-side scripts used.
 

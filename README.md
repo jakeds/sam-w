@@ -4,6 +4,6 @@ Neutral, clean, responsive personal home page that utilises Google Sheets as a d
 
 Example sheet can be found at: https://docs.google.com/spreadsheets/d/1x1M2mwl7eSxDxuKrrQ0B6eNCBHqzaaGZOZrtwvZyNyM/edit?usp=sharing
 
-Looks like this !(https://jakedowsmith.studio/content/thumbs/samw.jpg)
+Looks like this ![Screenshot](https://jakedowsmith.studio/content/thumbs/samw.jpg)
 
 Utilises https://github.com/jsoma/tabletop heavily (thanks!)
